@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101113">
+  <meta name="description" content="Conoce ECLOT: el espejo inteligente con luz LED, asistente de voz, música e inteligencia artificial. Encuentra el tamaño que se adapta a tu espacio.">
+  <title>ECLOT — Tu luz, tu espacio</title>
+  <style>
+    :root {
+      --ink: #0b0c0e;
+      --panel: #141619;
+      --panel-2: #1b1d20;
+      --paper: #f6f2e9;
+      --muted: #c1bdb4;
+      --gold: #d8b46a;
+      --gold-soft: #f1d99e;
+      --line: rgba(238, 225, 194, .18);
+      --shadow: 0 24px 80px rgba(0,0,0,.38);
+      --radius: 24px;
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 4px; }
+    img, svg { max-width: 100%; }
+    .wrap { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+    .eyebrow { color: var(--gold-soft); text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; font-weight: 700; }
+    .serif { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+    .accent { color: var(--gold-soft); }
+    .section { padding: 104px 0; position: relative; }
+    .section-head { max-width: 700px; margin: 0 auto 46px; text-align: center; }
+    .section-head h2 { font: 400 clamp(2.1rem, 5vw, 3.7rem)/1.05 Georgia, "Times New Roman", serif; margin: 13px 0 15px; letter-spacing: -.035em; }
+    .section-head p { color: var(--muted); margin: 0 auto; max-width: 620px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 21px; border-radius: 999px; text-decoration: none; font-size: .91rem; font-weight: 700; border: 1px solid transparent; transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-gold { color: #17130b; background: linear-gradient(115deg, #f1d99e, #c39a50); box-shadow: 0 10px 32px rgba(216,180,106,.18); }
+    .btn-gold:hover { box-shadow: 0 14px 40px rgba(216,180,106,.32); }
+    .btn-quiet { border-color: rgba(255,255,255,.28); color: var(--paper); background: rgba(255,255,255,.025); }
+    .btn-quiet:hover { border-color: var(--gold); background: rgba(216,180,106,.08); }
+    .topbar { height: 82px; display: flex; align-items: center; position: sticky; top: 0; z-index: 50; background: rgba(11,12,14,.86); border-bottom: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(18px); }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; min-width: 190px; }
+    .brand-mark { width: 38px; height: 38px; flex: 0 0 auto; }
+    .brand-name { letter-spacing: .28em; font-size: .96rem; font-weight: 500; }
+    .brand-tag { display: block; color: #a9a399; font-size: .51rem; letter-spacing: .21em; margin-top: 1px; }
+    .nav-links { display: flex; align-items: center; gap: clamp(15px, 2vw, 27px); }
+    .nav-links a { color: #d1cec7; text-decoration: none; font-size: .79rem; transition: color .2s ease; }
+    .nav-links a:hover { color: var(--gold-soft); }
+    .nav-links .nav-cta { padding: 10px 16px; border: 1px solid rgba(216,180,106,.54); border-radius: 999px; color: var(--gold-soft); }
+    .menu-toggle { display: none; border: 1px solid var(--line); color: var(--paper); background: transparent; width: 42px; height: 42px; border-radius: 50%; font-size: 1.15rem; }
+
+    .hero { min-height: 690px; display: grid; align-items: center; overflow: hidden; position: relative; isolation: isolate; padding: 70px 0 88px; background: radial-gradient(ellipse at 78% 45%, rgba(126,103,66,.19), transparent 36%), linear-gradient(120deg,#0b0c0e 35%,#111315); }
+    .hero::before { content: ""; position: absolute; z-index: -1; width: 560px; height: 560px; border-radius: 50%; right: 7%; top: 3%; background: radial-gradient(circle, rgba(230,196,125,.14), rgba(230,196,125,.025) 42%, transparent 67%); filter: blur(6px); }
+    .hero-grid { display: grid; grid-template-columns: .88fr 1.12fr; gap: 48px; align-items: center; }
+    .hero-copy { position: relative; z-index: 2; }
+    .hero h1 { font: 400 clamp(3.2rem, 7vw, 6.1rem)/.99 Georgia, "Times New Roman", serif; letter-spacing: -.055em; max-width: 660px; margin: 20px 0 24px; }
+    .hero h1 span { display: block; font-style: italic; color: var(--gold-soft); }
+    .hero-copy > p { max-width: 440px; color: #c4c0b7; font-size: 1.05rem; margin: 0; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 31px; }
+    .hero-note { display: flex; align-items: center; gap: 12px; margin-top: 40px; color: #a9a59c; font-size: .76rem; letter-spacing: .05em; }
+    .hero-note::before { content: ""; width: 40px; height: 1px; background: var(--gold); }
+    .hero-showcase { min-height: 480px; display: flex; align-items: end; justify-content: center; gap: clamp(8px, 1.65vw, 22px); position: relative; padding: 36px 20px 44px; border-bottom: 1px solid rgba(231,218,187,.35); background: linear-gradient(180deg, transparent 10%, rgba(255,255,255,.018) 78%, rgba(216,180,106,.08)); }
+    .hero-showcase::after { content: ""; position: absolute; bottom: -1px; width: 82%; height: 1px; box-shadow: 0 0 26px 7px rgba(216,180,106,.24); }
+    .showcase-caption { position: absolute; top: 18px; right: 22px; color: #ada79a; font-size: .67rem; letter-spacing: .18em; text-transform: uppercase; }
+    .mirror { --mirror-h: 190px; width: clamp(62px, 12vw, 126px); height: var(--mirror-h); flex: 0 0 auto; position: relative; border-radius: 5px; padding: 7px; background: linear-gradient(135deg,#d9d9d5 0%,#777a7c 12%,#26292d 24%,#c7c7c1 36%,#55595c 52%,#efeee8 65%,#55595a 82%,#c9c7bf 100%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.58), 0 12px 28px rgba(0,0,0,.54), 0 0 20px rgba(224,201,151,.1); transition: transform .35s ease, box-shadow .35s ease; }
+    .mirror:hover { transform: translateY(-8px); box-shadow: inset 0 0 0 1px white, 0 20px 38px rgba(0,0,0,.6), 0 0 30px rgba(224,201,151,.24); }
+    .mirror::before { content: ""; display: block; width: 100%; height: 100%; border-radius: 2px; background: radial-gradient(ellipse at 50% 48%, rgba(65,69,73,.14), transparent 48%), linear-gradient(155deg,#202226,#121416 63%,#202225); border: 1px solid rgba(228,225,216,.42); box-shadow: inset 0 0 26px rgba(0,0,0,.64); }
+    .mirror::after { content: ""; position: absolute; width: 7px; height: 7px; border-radius: 2px; left: 50%; bottom: 17px; transform: translateX(-50%); background: #4e82ff; box-shadow: 0 0 10px #4e82ff, 0 0 2px 2px rgba(80,130,255,.26); }
+    .mirror-small { --mirror-h: 150px; }
+    .mirror-medium { --mirror-h: 205px; }
+    .mirror-large { --mirror-h: 260px; }
+    .mirror-full { --mirror-h: 350px; width: clamp(78px, 15vw, 150px); }
+    .mirror-floor { position: absolute; bottom: 9px; color: #e4d4b2; font-size: .64rem; letter-spacing: .16em; text-align: center; text-transform: uppercase; }
+    .mirror-floor:nth-last-child(4) { left: 8%; }
+    .mirror-floor:nth-last-child(3) { left: 30%; }
+    .mirror-floor:nth-last-child(2) { left: 55%; }
+    .mirror-floor:nth-last-child(1) { right: 5%; }
+    .hero-disclaimer { display: block; position: absolute; right: 18px; bottom: -28px; color: #918d84; font-size: .66rem; }
+
+    .intro { background: var(--paper); color: #181715; }
+    .intro-grid { display: grid; grid-template-columns: .72fr 1.28fr; gap: 70px; align-items: center; }
+    .intro-symbol { min-height: 320px; display: grid; place-items: center; border-radius: 50%; width: min(100%,320px); margin-inline: auto; position: relative; background: radial-gradient(circle, #e6d7b6 0, #d1bb8c 33%, #252321 34%, #0b0c0e 67%); box-shadow: 0 25px 55px rgba(24,20,12,.17); }
+    .intro-symbol svg { width: 155px; filter: drop-shadow(0 0 15px rgba(238,213,155,.62)); }
+    .intro-copy .eyebrow { color: #8c6c32; }
+    .intro-copy h2 { font: 400 clamp(2.2rem,4.6vw,4rem)/1.02 Georgia, "Times New Roman", serif; margin: 13px 0 22px; letter-spacing: -.04em; }
+    .intro-copy p { color: #55514a; max-width: 610px; margin: 0 0 15px; }
+    .intro-quote { border-left: 2px solid #b8995a; padding-left: 18px; margin-top: 24px; color: #38352e; font-family: Georgia,serif; font-size: 1.18rem; }
+
+    .sizes { background: radial-gradient(ellipse at 50% 0%, rgba(192,158,89,.08), transparent 42%), #101113; }
+    .size-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 15px; align-items: stretch; }
+    .size-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--line); border-radius: 19px; overflow: hidden; background: linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.012)); box-shadow: var(--shadow); transition: transform .3s ease,border-color .3s ease; }
+    .size-card:hover { transform: translateY(-7px); border-color: rgba(216,180,106,.56); }
+    .size-art { height: 245px; display: flex; align-items: end; justify-content: center; gap: 12px; overflow: hidden; position: relative; padding: 18px 15px 21px; background: radial-gradient(ellipse at 50% 72%,rgba(226,200,148,.2),transparent 42%),linear-gradient(180deg,#202225,#141619 82%,#272522); }
+    .size-art::before { content: ""; position: absolute; bottom: 20px; width: 88%; height: 1px; background: rgba(232,219,189,.43); box-shadow: 0 0 20px rgba(216,180,106,.38); }
+    .size-art .mirror { z-index: 1; width: 108px; }
+    .size-art .mirror-small { --mirror-h: 112px; }
+    .size-art .mirror-medium { --mirror-h: 143px; }
+    .size-art .mirror-large { --mirror-h: 177px; }
+    .size-art .mirror-full { --mirror-h: 215px; width: 91px; }
+    .size-content { padding: 21px 20px 22px; display: flex; flex-direction: column; flex: 1; }
+    .size-number { color: var(--gold); font-size: .66rem; letter-spacing: .2em; }
+    .size-content h3 { margin: 6px 0 9px; font: 400 1.55rem Georgia,serif; }
+    .size-content p { color: #bdb9b1; font-size: .84rem; min-height: 68px; margin: 0 0 18px; }
+    .size-specs { margin-top: auto; border-top: 1px solid var(--line); padding-top: 13px; display: grid; gap: 8px; color: #c8c4bb; font-size: .77rem; }
+    .size-specs span { color: #8f8b83; margin-right: 5px; }
+    .size-note { color: #918d84; font-size: .73rem; text-align: center; margin: 20px 0 0; }
+
+    .features { background: #f1eee7; color: #171614; }
+    .features .eyebrow { color: #8c6c32; }
+    .features .section-head p { color: #5f5a51; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; }
+    .feature-card { min-height: 200px; padding: 25px; border-radius: 18px; border: 1px solid rgba(43,38,28,.1); background: rgba(255,255,255,.6); box-shadow: 0 12px 30px rgba(28,24,17,.045); }
+    .feature-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #89692f; border: 1px solid rgba(137,105,47,.28); background: #f7f0df; }
+    .feature-icon svg { width: 22px; height: 22px; }
+    .feature-card h3 { font: 400 1.27rem Georgia,serif; margin: 17px 0 7px; }
+    .feature-card p { color: #5d5951; font-size: .86rem; margin: 0; }
+
+    .how { background: #17191b; }
+    .how-flow { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--line); }
+    .how-step { background: #17191b; padding: 30px; min-height: 238px; }
+    .how-step .step { display: inline-grid; place-items: center; width: 37px; height: 37px; border: 1px solid rgba(216,180,106,.55); border-radius: 50%; color: var(--gold-soft); font-size: .75rem; }
+    .how-step h3 { font: 400 1.45rem Georgia,serif; margin: 18px 0 9px; }
+    .how-step p { color: #bbb7ae; font-size: .9rem; margin: 0; }
+
+    .price { background: radial-gradient(ellipse at 55% 50%, rgba(216,180,106,.14), transparent 47%), #0d0e10; }
+    .price-panel { max-width: 940px; margin: auto; border: 1px solid rgba(216,180,106,.34); border-radius: 26px; padding: clamp(26px,5vw,56px); display: grid; grid-template-columns: .85fr 1.15fr; gap: 42px; align-items: center; background: linear-gradient(125deg,rgba(216,180,106,.075),rgba(255,255,255,.018)); box-shadow: 0 30px 90px rgba(0,0,0,.28); }
+    .price-mark { min-height: 230px; border-radius: 20px; display: grid; place-items: center; background: radial-gradient(circle at center,rgba(244,222,170,.16),transparent 56%), #111315; }
+    .price-mark svg { width: 136px; filter: drop-shadow(0 0 14px rgba(216,180,106,.35)); }
+    .price-copy .eyebrow { color: var(--gold-soft); }
+    .price-copy h2 { font: 400 clamp(2rem,4vw,3.2rem)/1.04 Georgia,serif; margin: 10px 0 21px; }
+    .current-price { font-size: clamp(2.7rem,6vw,4.35rem); font-weight: 650; letter-spacing: -.06em; line-height: 1; color: var(--gold-soft); }
+    .current-label { color: #c6c1b7; font-size: .8rem; margin-top: 8px; }
+    .old-price { color: #aaa59b; margin-top: 19px; font-size: .93rem; }
+    .old-price s { color: #d2cdc3; margin-left: 6px; }
+    .price-caption { color: #928d83; font-size: .73rem; margin-top: 18px; }
+
+    .locations { background: var(--paper); color: #171614; }
+    .locations .eyebrow { color: #8c6c32; }
+    .locations .section-head p { color: #5f5a51; }
+    .location-board { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(6,1fr); grid-auto-rows: 140px; gap: 13px; }
+    .place { display: flex; flex-direction: column; justify-content: space-between; padding: 19px; border-radius: 16px; border: 1px solid rgba(39,34,25,.12); background: linear-gradient(145deg,#fffdf8,#eae4d7); box-shadow: 0 13px 30px rgba(31,28,21,.055); }
+    .place:nth-child(1),.place:nth-child(4) { grid-column: span 2; }
+    .place:nth-child(2),.place:nth-child(3),.place:nth-child(5) { grid-column: span 2; }
+    .place-icon { color: #94743b; font-size: 1.05rem; }
+    .place strong { font: 400 1.15rem Georgia,serif; }
+    .planned-note { color: #655e51; font-size: .76rem; text-align: center; margin: 20px 0 0; }
+
+    .follow { background: linear-gradient(125deg,#151617,#1b1c1e); }
+    .follow-grid { display: grid; grid-template-columns: 1fr .9fr; gap: 50px; align-items: center; }
+    .follow-copy .eyebrow { color: var(--gold-soft); }
+    .follow-copy h2 { font: 400 clamp(2.3rem,5vw,4rem)/1.03 Georgia,serif; margin: 13px 0 17px; }
+    .follow-copy p { color: #c1bdb4; max-width: 520px; }
+    .promo-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+    .promo-item { border: 1px solid var(--line); border-radius: 14px; padding: 17px; color: #e5dfd2; background: rgba(255,255,255,.025); }
+    .promo-item small { display: block; color: #a49d90; margin-top: 3px; }
+    .social-panel { border: 1px solid rgba(216,180,106,.35); border-radius: 21px; padding: 26px; background: radial-gradient(ellipse at top right,rgba(216,180,106,.12),transparent 54%),rgba(255,255,255,.022); }
+    .social-panel h3 { font: 400 1.5rem Georgia,serif; margin: 0 0 15px; }
+    .social-placeholder { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-top: 1px solid var(--line); color: #e7e2d8; font-size: .9rem; }
+    .social-placeholder span:last-child { color: #a69c87; font-size: .74rem; }
+
+    .qr-section { background: #f1eee7; color: #171614; padding: 76px 0; }
+    .qr-card { display: grid; grid-template-columns: 1fr 190px; gap: 30px; align-items: center; max-width: 810px; margin: auto; padding: 25px 30px; border: 1px solid rgba(44,38,27,.12); border-radius: 22px; background: #fffdf8; box-shadow: 0 18px 48px rgba(33,29,20,.07); }
+    .qr-card .eyebrow { color: #8c6c32; }
+    .qr-card h2 { font: 400 clamp(1.7rem,3vw,2.5rem)/1.06 Georgia,serif; margin: 8px 0; }
+    .qr-card p { color: #5f5a51; font-size: .88rem; margin: 0; }
+    .qr-image { width: 176px; height: 176px; background: white; padding: 10px; border-radius: 13px; border: 1px solid #e0dacd; }
+
+    .contact { background: #111214; }
+    .contact-card { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; padding: clamp(28px,5vw,52px); border-radius: 22px; border: 1px solid var(--line); background: linear-gradient(120deg,rgba(255,255,255,.045),rgba(255,255,255,.012)); }
+    .contact-card h2 { font: 400 clamp(2rem,4vw,3.3rem)/1.04 Georgia,serif; margin: 9px 0 12px; }
+    .contact-card p { color: #bbb7ae; margin: 0; }
+    .contact-fields { display: grid; gap: 11px; }
+    .contact-field { padding: 13px 15px; border: 1px dashed rgba(216,180,106,.38); border-radius: 11px; color: #d2cec4; font-size: .84rem; }
+    .contact-field span { color: #a49c8b; }
+    footer { padding: 25px 0; border-top: 1px solid rgba(255,255,255,.08); color: #99958d; font-size: .72rem; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .footer-row strong { color: #d5c8a6; letter-spacing: .19em; font-weight: 500; }
+    .rise { opacity: 0; transform: translateY(16px); transition: opacity .65s ease,transform .65s ease; }
+    .rise.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 920px) {
+      .nav-links { gap: 13px; }
+      .nav-links a { font-size: .72rem; }
+      .brand { min-width: auto; }
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .hero { padding-top: 80px; }
+      .hero-copy { max-width: 720px; }
+      .hero-showcase { min-height: 390px; max-width: 760px; width: 100%; margin: auto; }
+      .mirror-full { --mirror-h: 300px; }
+      .mirror-large { --mirror-h: 228px; }
+      .mirror-medium { --mirror-h: 180px; }
+      .mirror-small { --mirror-h: 132px; }
+      .intro-grid { gap: 35px; }
+      .size-grid { grid-template-columns: repeat(2,1fr); }
+      .feature-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: min(100% - 30px, 520px); }
+      .section { padding: 76px 0; }
+      .topbar { height: 70px; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .nav-links { display: none; position: absolute; top: 69px; left: 0; right: 0; padding: 17px 20px 22px; background: rgba(11,12,14,.97); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 4px; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 10px 5px; font-size: .9rem; }
+      .nav-links .nav-cta { text-align: center; margin-top: 7px; }
+      .hero { min-height: 0; padding: 69px 0 74px; }
+      .hero h1 { font-size: clamp(3rem,15vw,4.5rem); }
+      .hero-copy > p { font-size: .98rem; }
+      .hero-showcase { min-height: 320px; padding: 35px 6px 38px; gap: 8px; }
+      .showcase-caption { top: 3px; right: 6px; font-size: .54rem; }
+      .hero-showcase .mirror { width: clamp(54px,17vw,92px); padding: 5px; }
+      .hero-showcase .mirror-small { --mirror-h: 108px; }
+      .hero-showcase .mirror-medium { --mirror-h: 148px; }
+      .hero-showcase .mirror-large { --mirror-h: 186px; }
+      .hero-showcase .mirror-full { --mirror-h: 250px; width: clamp(62px,18vw,98px); }
+      .mirror-floor { font-size: .48rem; letter-spacing: .1em; }
+      .hero-disclaimer { right: 3px; font-size: .57rem; }
+      .intro-grid { grid-template-columns: 1fr; gap: 32px; }
+      .intro-symbol { width: 210px; min-height: 210px; }
+      .intro-symbol svg { width: 115px; }
+      .intro-copy h2 { font-size: 2.75rem; }
+      .size-grid { gap: 10px; }
+      .size-art { height: 185px; padding: 12px 7px 18px; }
+      .size-art .mirror { width: 73px; padding: 5px; }
+      .size-art .mirror-small { --mirror-h: 93px; }
+      .size-art .mirror-medium { --mirror-h: 116px; }
+      .size-art .mirror-large { --mirror-h: 143px; }
+      .size-art .mirror-full { --mirror-h: 160px; width: 67px; }
+      .size-content { padding: 16px 13px 17px; }
+      .size-content h3 { font-size: 1.35rem; }
+      .size-content p { font-size: .77rem; min-height: 82px; }
+      .size-specs { font-size: .7rem; }
+      .feature-grid { gap: 10px; }
+      .feature-card { min-height: 196px; padding: 18px 15px; }
+      .feature-card h3 { font-size: 1.1rem; }
+      .feature-card p { font-size: .79rem; }
+      .how-flow { grid-template-columns: 1fr; }
+      .how-step { min-height: 0; padding: 24px; }
+      .price-panel { grid-template-columns: 1fr; gap: 23px; }
+      .price-mark { min-height: 170px; }
+      .price-mark svg { width: 108px; }
+      .location-board { grid-template-columns: repeat(2,1fr); grid-auto-rows: 120px; gap: 9px; }
+      .place, .place:nth-child(n) { grid-column: span 1; padding: 14px; }
+      .place strong { font-size: 1rem; }
+      .follow-grid { grid-template-columns: 1fr; gap: 28px; }
+      .promo-list { gap: 8px; }
+      .promo-item { padding: 13px; font-size: .85rem; }
+      .qr-card { grid-template-columns: 1fr 130px; padding: 20px; gap: 14px; }
+      .qr-image { width: 128px; height: 128px; padding: 7px; }
+      .contact-card { grid-template-columns: 1fr; gap: 24px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 370px) {
+      .size-grid { grid-template-columns: 1fr; }
+      .size-art { height: 205px; }
+      .size-art .mirror { width: 87px; }
+      .size-art .mirror-small { --mirror-h: 107px; }
+      .size-art .mirror-medium { --mirror-h: 132px; }
+      .size-art .mirror-large { --mirror-h: 158px; }
+      .size-art .mirror-full { --mirror-h: 176px; width: 75px; }
+      .size-content p { min-height: 0; }
+      .qr-card { grid-template-columns: 1fr; text-align: center; }
+      .qr-image { margin: auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .rise { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="ECLOT, inicio">
+        <svg class="brand-mark" viewBox="0 0 100 100" role="img" aria-label="Emblema Sol y Luna">
+          <circle cx="50" cy="50" r="43" fill="none" stroke="#d8b46a" stroke-width="1.6"/>
+          <path d="M67 22a26 26 0 1 0 13 45A24 24 0 0 1 67 22Z" fill="#d8b46a" opacity=".95"/>
+          <path d="M49 23v9m0 36v9M23 49h9m36 0h9M31 31l7 7m24 24 7 7m0-38-7 7M38 62l-7 7" stroke="#f4dea8" stroke-width="2" stroke-linecap="round"/>
+          <path d="M54 45c-5-10-18-7-19 2-1 7 8 10 14 6 7-4 14 0 13 8-1 10-15 16-27 8" fill="none" stroke="#f4dea8" stroke-width="2" stroke-linecap="round"/>
+          <path d="m69 14 1.4 4.2 4.2 1.4-4.2 1.4-1.4 4.2-1.4-4.2-4.2-1.4 4.2-1.4z" fill="#f4dea8"/>
+        </svg>
+        <span><span class="brand-name">ECLOT</span><span class="brand-tag">SOL · LUNA · TU ESENCIA</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">☰</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#conoce">La marca</a><a href="#tamanos">Tamaños</a><a href="#funciones">Funciones</a><a href="#precio">Precio</a><a href="#encuentranos">Encuéntranos</a><a href="#contacto" class="nav-cta">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div class="hero-copy rise">
+          <span class="eyebrow">Catálogo digital · Sol y Luna</span>
+          <h1>ECLOT:<span>mírate, prepárate y brilla.</span></h1>
+          <p>Más que un espejo, tu compañero inteligente para cada look.</p>
+          <div class="hero-actions"><a class="btn btn-gold" href="#conoce">Conoce ECLOT <span aria-hidden="true">↗</span></a><a class="btn btn-quiet" href="#tamanos">Ver tamaños <span aria-hidden="true">↓</span></a></div>
+          <div class="hero-note">Tu espacio, tu estilo, tu momento.</div>
+        </div>
+        <div class="hero-showcase rise" role="img" aria-label="Ilustración de los cuatro tamaños del espejo ECLOT, de chico a cuerpo completo">
+          <span class="showcase-caption">Un mismo diseño · cuatro tamaños</span>
+          <div class="mirror mirror-small" aria-hidden="true"></div><div class="mirror mirror-medium" aria-hidden="true"></div><div class="mirror mirror-large" aria-hidden="true"></div><div class="mirror mirror-full" aria-hidden="true"></div>
+          <span class="mirror-floor">01 · Chico</span><span class="mirror-floor">02 · Mediano</span><span class="mirror-floor">03 · Grande</span><span class="mirror-floor">04 · Cuerpo completo</span>
+          <span class="hero-disclaimer">Ilustración visual; medidas oficiales por confirmar.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section intro" id="conoce">
+      <div class="wrap intro-grid">
+        <div class="intro-symbol rise" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="43" fill="none" stroke="#f1d99e" stroke-width="1.4"/>
+            <path d="M67 22a26 26 0 1 0 13 45A24 24 0 0 1 67 22Z" fill="#f1d99e"/>
+            <path d="M49 23v9m0 36v9M23 49h9m36 0h9M31 31l7 7m24 24 7 7m0-38-7 7M38 62l-7 7" stroke="#f1d99e" stroke-width="2" stroke-linecap="round"/>
+            <path d="M54 45c-5-10-18-7-19 2-1 7 8 10 14 6 7-4 14 0 13 8-1 10-15 16-27 8" fill="none" stroke="#f1d99e" stroke-width="2" stroke-linecap="round"/>
+            <path d="m69 14 1.4 4.2 4.2 1.4-4.2 1.4-1.4 4.2-1.4-4.2-4.2-1.4 4.2-1.4z" fill="#f1d99e"/>
+          </svg>
+        </div>
+        <div class="intro-copy rise">
+          <span class="eyebrow">Sol · Luna · Tu esencia</span>
+          <h2>Un espejo que acompaña <span class="serif accent">tu estilo.</span></h2>
+          <p>ECLOT combina el espejo de todos los días con tecnología inteligente para acompañarte mientras te preparas. Música, luz y una segunda opinión se reúnen en un mismo espacio.</p>
+          <p>Su inteligencia artificial puede ayudarte a pensar tu outfit o maquillaje desde otra perspectiva. No está para juzgarte: está para apoyarte a elegir con más confianza.</p>
+          <div class="intro-quote">“Más confianza en lo que ya es tuyo: tu esencia.”</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section sizes" id="tamanos">
+      <div class="wrap">
+        <div class="section-head rise"><span class="eyebrow">Encuentra tu formato</span><h2>Un mismo diseño, <span class="accent">cuatro tamaños.</span></h2><p>Desde un rincón personal hasta el look completo: compara cada formato y elige el que mejor se adapta a tu espacio.</p></div>
+        <div class="size-grid">
+          <article class="size-card rise">
+            <div class="size-art" aria-hidden="true"><div class="mirror mirror-small"></div></div>
+            <div class="size-content"><span class="size-number">01 / CHICO</span><h3>Chico</h3><p>Ideal para espacios pequeños y para quienes buscan una opción práctica.</p><div class="size-specs"><div><span>Medidas</span>Por agregar</div><div><span>Precio</span>Por agregar</div></div></div>
+          </article>
+          <article class="size-card rise">
+            <div class="size-art" aria-hidden="true"><div class="mirror mirror-medium"></div></div>
+            <div class="size-content"><span class="size-number">02 / MEDIANO</span><h3>Mediano</h3><p>Una opción equilibrada para utilizar diariamente.</p><div class="size-specs"><div><span>Medidas</span>Por agregar</div><div><span>Precio</span>Por agregar</div></div></div>
+          </article>
+          <article class="size-card rise">
+            <div class="size-art" aria-hidden="true"><div class="mirror mirror-large"></div></div>
+            <div class="size-content"><span class="size-number">03 / GRANDE</span><h3>Grande</h3><p>Para quienes quieren una superficie más amplia y una experiencia más completa.</p><div class="size-specs"><div><span>Medidas</span>Por agregar</div><div><span>Precio</span>Por agregar</div></div></div>
+          </article>
+          <article class="size-card rise">
+            <div class="size-art" aria-hidden="true"><div class="mirror mirror-full"></div></div>
+            <div class="size-content"><span class="size-number">04 / CUERPO COMPLETO</span><h3>Cuerpo completo</h3><p>Para ver el outfit completo; ideal para habitaciones, vestidores u otros espacios.</p><div class="size-specs"><div><span>Medidas</span>Por agregar</div><div><span>Precio</span>Por agregar</div></div></div>
+          </article>
+        </div>
+        <p class="size-note">La escala de las ilustraciones es orientativa. Medidas y precios por tamaño: pendientes de confirmar.</p>
+      </div>
+    </section>
+
+    <section class="section features" id="funciones">
+      <div class="wrap">
+        <div class="section-head rise"><span class="eyebrow">Tecnología que acompaña</span><h2>Detalles para tu <span class="accent">ritual diario.</span></h2><p>Lo esencial para prepararte a tu manera: iluminación ajustable, voz, inteligencia artificial y música.</p></div>
+        <div class="feature-grid">
+          <article class="feature-card rise"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></span><h3>Luz LED ajustable</h3><p>Regula la intensidad para acompañar el momento de maquillarte o elegir tu outfit.</p></article>
+          <article class="feature-card rise"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3a7 7 0 0 0-7 7v3a2 2 0 0 0 2 2h2v-5H6m12 0h-3v5h2a2 2 0 0 0 2-2v-3a7 7 0 0 0-7-7Z"/><path d="M9 19c1.2 1 4.8 1 6 0"/></svg></span><h3>Asistente de voz</h3><p>Interactúa con el espejo usando el asistente de voz integrado.</p></article>
+          <article class="feature-card rise"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 14 9l6 2-6 2-2 6-2-6-6-2 6-2 2-6Z"/><path d="m19 3 .8 2.2L22 6l-2.2.8L19 9l-.8-2.2L16 6l2.2-.8L19 3Z"/></svg></span><h3>Inteligencia artificial</h3><p>Una segunda opinión para explorar tu outfit o maquillaje, siempre desde el apoyo y sin juicios.</p></article>
+          <article class="feature-card rise"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 9v6h4l5 4V5l-5 4H5Z"/><path d="M17 9a4 4 0 0 1 0 6m2-9a7 7 0 0 1 0 12"/></svg></span><h3>Bocina integrada</h3><p>Vinculada con el asistente de voz para interactuar y reproducir música mientras te preparas.</p></article>
+          <article class="feature-card rise"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></span><h3>Panel solar</h3><p>Parte del sistema de batería solar del espejo ECLOT.</p></article>
+          <article class="feature-card rise"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 7V4m8 3V4M7 7h10v13H7zM10 11h4m-2-2v4"/><path d="M12 14v3"/></svg></span><h3>Cable para carga</h3><p>El producto incluye un cable para carga. Los detalles técnicos están pendientes de especificar.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how" id="como-funciona">
+      <div class="wrap">
+        <div class="section-head rise"><span class="eyebrow">Simple, como tu rutina</span><h2>¿Cómo funciona <span class="accent">ECLOT?</span></h2><p>Tu espejo de siempre, con herramientas inteligentes para acompañarte al prepararte.</p></div>
+        <div class="how-flow">
+          <article class="how-step rise"><span class="step">01</span><h3>Prepárate frente al espejo</h3><p>Usa ECLOT como espejo mientras eliges tu outfit o te maquillas.</p></article>
+          <article class="how-step rise"><span class="step">02</span><h3>Busca una segunda opinión</h3><p>La inteligencia artificial integrada puede ayudarte a ver tu look desde otra perspectiva, sin juzgar tu apariencia.</p></article>
+          <article class="how-step rise"><span class="step">03</span><h3>Ajusta tu ambiente</h3><p>Regula la intensidad de la luz LED y reproduce música con la bocina integrada y el asistente de voz.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section price" id="precio">
+      <div class="wrap">
+        <div class="price-panel rise">
+          <div class="price-mark" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" fill="none" stroke="#d8b46a" stroke-width="1.3"/><path d="M67 22a26 26 0 1 0 13 45A24 24 0 0 1 67 22Z" fill="#d8b46a"/><path d="M49 23v9m0 36v9M23 49h9m36 0h9M31 31l7 7m24 24 7 7m0-38-7 7M38 62l-7 7" stroke="#f1d99e" stroke-width="2" stroke-linecap="round"/><path d="M54 45c-5-10-18-7-19 2-1 7 8 10 14 6 7-4 14 0 13 8-1 10-15 16-27 8" fill="none" stroke="#f1d99e" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="price-copy"><span class="eyebrow">Precio promocional</span><h2>Tu nuevo ritual empieza aquí.</h2><div class="current-price">$2,599</div><div class="current-label">MXN · precio actual</div><div class="old-price">Precio original <s>$3,119 MXN</s></div><p class="price-caption">Precio publicado según la información disponible. El porcentaje de descuento está pendiente de confirmación.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section locations" id="encuentranos">
+      <div class="wrap">
+        <div class="section-head rise"><span class="eyebrow">Baja California Sur</span><h2>Pronto, más cerca de <span class="accent">tu espacio.</span></h2><p>Estos son los lugares donde se planea vender ECLOT. La disponibilidad está por confirmarse.</p></div>
+        <div class="location-board">
+          <article class="place rise"><span class="place-icon" aria-hidden="true">✦</span><strong>Anima Village</strong></article>
+          <article class="place rise"><span class="place-icon" aria-hidden="true">✦</span><strong>Puerta Paraíso</strong></article>
+          <article class="place rise"><span class="place-icon" aria-hidden="true">✦</span><strong>Plaza Patio</strong></article>
+          <article class="place rise"><span class="place-icon" aria-hidden="true">✦</span><strong>Centro de San José del Cabo</strong></article>
+          <article class="place rise"><span class="place-icon" aria-hidden="true">✦</span><strong>Zona hotelera</strong></article>
+        </div>
+        <p class="planned-note">Ubicaciones planeadas; no representan puntos de venta confirmados.</p>
+      </div>
+    </section>
+
+    <section class="section follow" id="siguenos">
+      <div class="wrap follow-grid">
+        <div class="follow-copy rise"><span class="eyebrow">Conoce ECLOT</span><h2>La luz también se comparte.</h2><p>La marca planea dar a conocer ECLOT a través de colaboraciones con influencers, tarjetas promocionales y esta página web.</p><div class="promo-list"><div class="promo-item">Colaboraciones<small>Con influencers</small></div><div class="promo-item">Tarjetas<small>Promocionales</small></div><div class="promo-item">Catálogo digital<small>La página ECLOT</small></div><div class="promo-item">Redes sociales<small>Enlaces por agregar</small></div></div></div>
+        <div class="social-panel rise"><h3>Síguenos muy pronto</h3><div class="social-placeholder"><span>Instagram</span><span>Enlace por agregar</span></div><div class="social-placeholder"><span>TikTok</span><span>Enlace por agregar</span></div><div class="social-placeholder"><span>Otras redes</span><span>Enlaces por agregar</span></div></div>
+      </div>
+    </section>
+
+    <section class="qr-section" aria-labelledby="qr-title">
+      <div class="wrap">
+        <div class="qr-card rise"><div><span class="eyebrow">Llévalo contigo</span><h2 id="qr-title">Escanea y descubre ECLOT.</h2><p>Abre la cámara de tu teléfono y apunta al código para visitar este catálogo.</p></div><img class="qr-image" src="qr-eclot.png" width="176" height="176" alt="Código QR para abrir el catálogo digital de ECLOT"></div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contacto">
+      <div class="wrap">
+        <div class="contact-card rise">
+          <div><span class="eyebrow">Contacto</span><h2>¿Quieres conocer más?</h2><p>Agrega aquí los canales oficiales de ECLOT cuando estén disponibles.</p></div>
+          <div class="contact-fields"><div class="contact-field">Correo <span>· por agregar</span></div><div class="contact-field">WhatsApp <span>· por agregar</span></div><div class="contact-field">Redes sociales <span>· enlaces por agregar</span></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-row"><strong>ECLOT</strong><span>Sol · Luna · Tu esencia</span><span>Catálogo digital</span></div></footer>
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const links = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      toggle.textContent = open ? '×' : '☰';
+    });
+    links.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      links.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); toggle.setAttribute('aria-label', 'Abrir menú'); toggle.textContent = '☰';
+    }));
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      }), { threshold: .12 });
+      document.querySelectorAll('.rise').forEach(el => observer.observe(el));
+    } else document.querySelectorAll('.rise').forEach(el => el.classList.add('visible'));
+  </script>
+</body>
+</html>
