@@ -1,15 +1,28 @@
 # ECLOT · Catálogo digital
 
-Sitio estático adaptable publicado con GitHub Pages.
+Sitio estático adaptable, publicado en GitHub Pages.
 
-- `index.html`: catálogo de ECLOT; el emblema Sol/Luna y las ilustraciones de tamaños están integrados como gráficos vectoriales/CSS.
-- `qr-eclot.png`: código QR para abrir el catálogo en línea.
-- `qr-eclot.svg`: versión vectorial del QR para impresión.
+## Medidas y precios del catálogo
 
-## Campos pendientes antes de cerrar el catálogo
+Estas cifras se muestran como **propuestas orientativas**, no como especificaciones ni cotizaciones confirmadas. Las medidas están expresadas como alto × ancho:
 
-- Añadir medidas y precios confirmados para cada tamaño.
-- Añadir los enlaces oficiales de redes y los datos de contacto.
-- Revisar el porcentaje de descuento: $2,599 MXN frente a $3,119 MXN equivale aproximadamente a 16.7%, no a 20%.
+| Tamaño | Medida propuesta | Precio mostrado |
+|---|---:|---:|
+| Chico | 50 × 40 cm | $2,599 MXN (precio informado; asignación provisional) |
+| Mediano | 70 × 50 cm | $3,299 MXN (sugerido) |
+| Grande | 90 × 60 cm | $4,199 MXN (sugerido) |
+| Cuerpo completo | 160 × 50 cm | $5,499 MXN (sugerido) |
 
-URL pública prevista: https://85m8d5v4t9-byte.github.io/eclot-catalogo/
+Confirmar medidas con fabricación y revisar costos, componentes, empaque y margen antes de presentar los importes como precios definitivos. El precio original informado de $3,119 MXN se conserva como referencia para el precio base; frente a $2,599 equivale aproximadamente a 16.7%, no a 20%.
+
+## Contacto
+
+La única cuenta social compartida es Instagram: **@eclat_oficcialb.c.s**. El catálogo enlaza directamente a su perfil; no se añadieron cuentas de otras redes ni datos de correo o WhatsApp.
+
+## Archivos
+
+- `index.html`: página del catálogo; gráficos de marca y espejos integrados en vector/CSS.
+- `qr-eclot.png`: QR raster para compartir o escanear.
+- `qr-eclot.svg`: QR vectorial para imprimir.
+
+URL del catálogo: https://85m8d5v4t9-byte.github.io/eclot-catalogo/
