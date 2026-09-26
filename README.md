@@ -1,4 +1,4 @@
-# ECLOT · Catálogo digital
+# ECLÁT · Catálogo digital
 
 Sitio estático adaptable, publicado en GitHub Pages.
 
@@ -22,7 +22,5 @@ La única cuenta social compartida es Instagram: **@eclat_oficcialb.c.s**. El ca
 ## Archivos
 
 - `index.html`: página del catálogo; gráficos de marca y espejos integrados en vector/CSS.
-- `qr-eclot.png`: QR raster para compartir o escanear.
-- `qr-eclot.svg`: QR vectorial para imprimir.
 
 URL del catálogo: https://85m8d5v4t9-byte.github.io/eclot-catalogo/
